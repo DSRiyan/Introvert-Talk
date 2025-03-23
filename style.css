@@ -34,6 +34,10 @@ h1 {
   margin-top: 1.5rem;
 }
 
+.input-group option{
+  color: #000;
+}
+
 .input-group input,
 .input-group select,
 .input-group textarea {
@@ -97,6 +101,8 @@ button.click-btn:hover {
   box-shadow: 0 0 15px #fff5;
 }
 
+
+
 /* Popups */
 .overlay {
   position: fixed;
@@ -127,14 +133,6 @@ button.click-btn:hover {
 
 .popup.active {
   transform: translate(-50%, -50%) scale(1);
-}
-
-.rules-list {
-  padding-left: 1rem;
-}
-
-.rules-list li {
-  margin-bottom: 0.6rem;
 }
 
 
