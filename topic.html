@@ -1,102 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Conversation Topics</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .topic-container {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: white;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversation Topics</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .topic-container {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: white;
+        }
 
-    .topic-box {
-      margin: 2rem auto;
-      background: #fff3fc;
-      color: #5f0a87;
-      padding: 1.5rem;
-      border-radius: 15px;
-      max-width: 400px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-      transition: 0.3s ease;
-    }
+        .topic-box {
+            margin: 2rem auto;
+            background: #fff3fc;
+            color: #5f0a87;
+            padding: 1.5rem;
+            border-radius: 15px;
+            max-width: 500px;
+            font-size: 1.7rem;
+            font-weight: 500;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            transition: 0.3s ease;
+        }
 
-    .topic-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 1rem;
-    }
+        .topic-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
 
-    button.topic-btn {
-      background: #ff6ec4;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
+        button.topic-btn {
+            background: #ff6ec4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-size: 1.5rem;
+        }
 
-    button.topic-btn:hover {
-      background: #f833a6;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #fff5;
-    }
+        button.topic-btn:hover {
+            background: #f833a6;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #fff5;
+        }
 
-    .highlight {
-      color: #ffd6ff;
-    }
-  </style>
+        .highlight {
+            color: #ffd6ff;
+        }
+
+        .rules-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(to right, #a4508b, #5f0a87);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            z-index: 10;
+            display: none;
+            opacity: 0;
+            transition: 0.4s ease;
+            border: 7px solid white;
+        }
+
+        .rules-popup.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .rules-popup h3 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .rules-popup ol {
+            padding-left: 20px;
+            text-align: left;
+            font-size: 1.4rem;
+        }
+
+        .rules-popup button {
+            background: white;
+            color: #a855f7;
+            border: none;
+            padding: 8px 16px;
+            font-weight: bold;
+            font-size: 1.4rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .topic-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .topic-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width:768px) {
+            .rules-popup {
+                max-width: 300px;
+            }
+            
+            .rules-popup h3 {
+                font-size: 1.5rem;
+            }
+
+            .rules-popup ol,.rules-popup button {
+                font-size: 1rem;
+                text-transform: capitalize;
+            }
+        }
+        
+    </style>
 </head>
+
 <body>
-  <div class="topic-container">
-    <h1>Welcome, <span id="userName" class="highlight"></span> 👋</h1>
-    <p>Let’s help you start a confident and interesting conversation!</p>
+    <div class="topic-container">
+        <h1>Welcome, <span id="userName" class="highlight"></span> 👋</h1>
+        <p>Let’s help you start a confident and interesting conversation!</p>
 
-    <button onclick="generateTopic()" class="topic-btn">Suggest a Topic 💡</button>
+        <button onclick="generateTopic()" class="topic-btn">Suggest a Topic💡</button>
 
-    <div class="topic-box" id="topicBox">
-      Click the button to get your first topic! ✨
+        <div class="topic-box" id="topicBox">
+            Click the button to get your first topic!
+        </div>
+
+        <div class="topic-buttons">
+            <button onclick="generateTopic()" class="topic-btn">🔄 Refresh Topic</button>
+            <button onclick="toggleRules()" class="topic-btn">Online Chat Rules</button>
+        </div>
     </div>
 
-    <div class="topic-buttons">
-      <button onclick="generateTopic()" class="topic-btn">🔄 Refresh Topic</button>
+    <!-- Pop-up for Online Rules -->
+    <div class="rules-popup" id="rulesPopup">
+        <h3>7 Simple Online Conversation Rules:</h3>
+        <ol>
+            <li>Start with a friendly “Hi” or “Hello”</li>
+            <li>Don’t be afraid to be yourself</li>
+            <li>Be polite and respectful</li>
+            <li>Give the other person time to reply</li>
+            <li>Use emojis to express feelings</li>
+            <li>Avoid dry answers, try adding a bit more</li>
+            <li>End with something nice or positive</li>
+        </ol>
+        <button onclick="toggleRules()">Close</button>
     </div>
-      <button id="rulesBtn" class="click-btn">Online Chat Rules</button>
-  </div>
 
-  <audio id="refreshSound" src="https://www.fesliyanstudios.com/play-mp3/6535" preload="auto"></audio>
+    <audio id="refreshSound" src="https://www.fesliyanstudios.com/play-mp3/6535" preload="auto"></audio>
 
-  <script>
-    const name = localStorage.getItem("name");
-    document.getElementById("userName").textContent = name ? name : "Friend";
-  
-    const topics = [
-      "What was the last movie or show you watched and enjoyed?",
-      "If you could travel anywhere right now, where would you go and why?",
-      "What’s a memory that always makes you smile?",
-      "What's something new you’ve learned recently?",
-      "What’s a hobby or interest you’ve always wanted to try?",
-      "If today was your last day to talk to someone, what would you say?",
-      "What’s your idea of a perfect weekend?",
-      "If you had to give a TED Talk, what topic would you choose?",
-      "What’s one thing that instantly improves your mood?",
-      "What would your dream life look like in 5 years?"
-    ];
-  
-    const refreshSound = document.getElementById("refreshSound");
-  
-    function generateTopic() {
-      const random = Math.floor(Math.random() * topics.length);
-      document.getElementById("topicBox").textContent = topics[random];
-      refreshSound.play();
-    }
-  </script>
+    <script>
+        const name = localStorage.getItem("name");
+        document.getElementById("userName").textContent = name ? name : "Friend";
+
+        const topics = [
+            "If you could have any superpower for a day, what would it be?",
+            "What's your go-to comfort food?",
+            "What’s a memory that always makes you smile?",
+            "What's something new you’ve learned recently?",
+            "What’s a hobby or interest you’ve always wanted to try?",
+            "If today was your last day to talk to someone, what would you say?",
+            "What’s your idea of a perfect weekend?",
+            "If you had to give a TED Talk, what topic would you choose?",
+            "What’s one thing that instantly improves your mood?",
+            "What would your dream life look like in 5 years?"
+        ];
+
+        const refreshSound = document.getElementById("refreshSound");
+
+        function generateTopic() {
+            const random = Math.floor(Math.random() * topics.length);
+            document.getElementById("topicBox").textContent = topics[random];
+            refreshSound.play();
+        }
+
+        function toggleRules() {
+            const popup = document.getElementById("rulesPopup");
+            popup.classList.toggle("active");
+        }
+    </script>
 </body>
+
 </html>
