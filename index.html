@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ConfidentTalk - Sign Up</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>ConfidentTalk 🌐</h1>
+    <p class="mission">Talk better. Talk bolder. We got your back. 💬</p>
+
+    <form id="signupForm">
+      <div class="input-group">
+        <input type="text" id="fullname" required />
+        <label for="fullname">Full Name</label>
+      </div>
+
+      <div class="input-group">
+        <input type="date" id="dob" required />
+        <label class="static-label">Date of Birth</label>
+      </div>
+
+      <div class="input-group">
+        <select id="gender" required>
+          <option value="" disabled selected>Select your gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+        <label class="static-label">Gender</label>
+      </div>
+
+      <div class="input-group">
+        <textarea id="review" required></textarea>
+        <label for="review">Why do you want to use this website?</label>
+      </div>
+
+      <button type="submit" class="click-btn">Submit</button>
+    </form>
+  </div>
+
+  <!-- Overlay and Popups -->
+  <div class="overlay" id="overlay"></div>
+
+  <div class="popup" id="popup">
+    <h3>Is This Info Correct? ✅</h3>
+    <p><strong>Name:</strong> <span id="popupName"></span></p>
+    <p><strong>DOB:</strong> <span id="popupDOB"></span></p>
+    <p><strong>Gender:</strong> <span id="popupGender"></span></p>
+    <p><strong>Reason:</strong> <span id="popupReason"></span></p>
+    <div class="popup-buttons">
+      <button id="rulesBtn" class="click-btn">Online Chat Rules</button>
+      <button onclick="location.href='topic.html'" class="click-btn">Give Me Topics</button>
+    </div>
+  </div>
+
+  <div class="popup" id="rulesPopup">
+    <h3>7 Online Conversation Rules 🧠</h3>
+    <ul class="rules-list">
+      <li>✅ Greet properly: Start with a “Hi” or “Hey!”</li>
+      <li>✅ Don’t text too fast — give space to respond</li>
+      <li>✅ Use emojis to express tone 😄</li>
+      <li>✅ Avoid dry one-word replies</li>
+      <li>✅ Stay polite and respectful</li>
+      <li>✅ Use “I” statements instead of blaming</li>
+      <li>✅ Don’t ghost — communicate clearly</li>
+    </ul>
+    <button onclick="closeRulesPopup()" class="click-btn">Close</button>
+  </div>
+
+  <audio id="clickSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+  <script src="script.js"></script>
+  <script>
+  // Redirect to topic page if user has already signed up
+  window.onload = function () {
+    if (localStorage.getItem("name") && localStorage.getItem("dob")) {
+      window.location.href = "topic.html";
+    }
+  };
+</script>
+</body>
+</html>

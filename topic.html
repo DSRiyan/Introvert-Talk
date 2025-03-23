@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conversation Topics</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .topic-container {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: white;
+    }
+
+    .topic-box {
+      margin: 2rem auto;
+      background: #fff3fc;
+      color: #5f0a87;
+      padding: 1.5rem;
+      border-radius: 15px;
+      max-width: 400px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      transition: 0.3s ease;
+    }
+
+    .topic-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    button.topic-btn {
+      background: #ff6ec4;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button.topic-btn:hover {
+      background: #f833a6;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #fff5;
+    }
+
+    .highlight {
+      color: #ffd6ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="topic-container">
+    <h1>Welcome, <span id="userName" class="highlight"></span> 👋</h1>
+    <p>Let’s help you start a confident and interesting conversation!</p>
+
+    <button onclick="generateTopic()" class="topic-btn">Suggest a Topic 💡</button>
+
+    <div class="topic-box" id="topicBox">
+      Click the button to get your first topic! ✨
+    </div>
+
+    <div class="topic-buttons">
+      <button onclick="generateTopic()" class="topic-btn">🔄 Refresh Topic</button>
+    </div>
+  </div>
+
+  <audio id="refreshSound" src="https://www.fesliyanstudios.com/play-mp3/6535" preload="auto"></audio>
+
+  <script>
+    const name = localStorage.getItem("name");
+    document.getElementById("userName").textContent = name ? name : "Friend";
+  
+    const topics = [
+      "What was the last movie or show you watched and enjoyed?",
+      "If you could travel anywhere right now, where would you go and why?",
+      "What’s a memory that always makes you smile?",
+      "What's something new you’ve learned recently?",
+      "What’s a hobby or interest you’ve always wanted to try?",
+      "If today was your last day to talk to someone, what would you say?",
+      "What’s your idea of a perfect weekend?",
+      "If you had to give a TED Talk, what topic would you choose?",
+      "What’s one thing that instantly improves your mood?",
+      "What would your dream life look like in 5 years?"
+    ];
+  
+    const refreshSound = document.getElementById("refreshSound");
+  
+    function generateTopic() {
+      const random = Math.floor(Math.random() * topics.length);
+      document.getElementById("topicBox").textContent = topics[random];
+      refreshSound.play();
+    }
+  </script>
+</body>
+</html>
