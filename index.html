@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Introvert-Talk - Sign Up</title>
+  <title>Introvert Talk</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="container">
-    <h1>Introvert Talk 🌐</h1>
-    <p class="mission">Talk better. Talk bolder. We got your back. 💬</p>
+    <h1>Introvert Talk</h1>
+    <p class="mission">Talk better & Confident With Our Topic's</p>
 
     <form id="signupForm">
       <div class="input-group">
@@ -46,19 +46,11 @@
     <p><strong>DOB:</strong> <span id="popupDOB"></span></p>
     <p><strong>Gender:</strong> <span id="popupGender"></span></p>
     <div class="popup-buttons">
-      <button onclick="location.href='topic.html'" class="click-btn">Give Me Topics</button>
+      <button onclick="location.href='topics.html'" class="click-btn">Give Me Topics</button>
     </div>
   </div>
 
   <audio id="clickSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
   <script src="script.js"></script>
-  <script>
-  // Redirect to topic page if user has already signed up
-  window.onload = function () {
-    if (localStorage.getItem("name") && localStorage.getItem("dob")) {
-      window.location.href = "topic.html";
-    }
-  };
-</script>
 </body>
 </html>
